@@ -3,9 +3,8 @@
     "vm_disk_size": "81920",
     "vm_iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.3-server-amd64.iso",
     "vm_iso_checksum": "9e5fecc94b3925bededed0fdca1bd417",
-    "atlas_token": "08zjqiXAuLJHCw.atlasv1.MnJFKSE3rysIpk1t5FlIBYSO3gWzKreoa0JUozwDUmXgXDiqrcQq1fqHKaafeWO3Dfc",
-    "atlas_artifact_name": "cloudhotspot/gocd",
-    "atlas_artifact_version": "14.04.3"
+    "atlas_artifact_name": "cloudhotspot/gocd-server",
+    "atlas_artifact_version": "15.2.0-2248"
   },
   "builders": [
     {
