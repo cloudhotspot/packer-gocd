@@ -1,0 +1,18 @@
+gocd:
+  box: cloudhotspot/gocd-server
+  memory: 2048
+  cpu: 2
+  aws:
+    private_key_path: ~/.ssh/aws
+    region: us-west-2
+    keypair_name: "Justin Menga"
+    ami: ami-48f3e229
+    subnet_id: subnet-97452df2
+    associate_public_ip: true
+    elastic_ip: true
+    instance_type: t2.small
+    security_groups:
+      - sg-b7792dd3
+    tags:
+      application: gocd
+      environment: playground

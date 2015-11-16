@@ -4,9 +4,37 @@
     "vm_iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.3-server-amd64.iso",
     "vm_iso_checksum": "9e5fecc94b3925bededed0fdca1bd417",
     "atlas_artifact_name": "cloudhotspot/gocd-server",
-    "atlas_artifact_version": "15.2.0-2248"
+    "atlas_artifact_version": "15.2.0-2248",
+    "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_KEY`}}",
+    "aws_source_ami": "ami-8ee605bd",
+    "aws_region": "us-west-2",
+    "aws_instance_type": "t2.micro",
+    "aws_ssh_username": "ubuntu",
+    "aws_vpc_id":"vpc-db0696be",
+    "aws_subnet_id": "subnet-97452df2",
+    "aws_associate_public_ip_address": "true",
+    "aws_ami_name": "gocd {{timestamp}}"
   },
   "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "{{user `aws_region`}}",
+      "source_ami": "{{user `aws_source_ami`}}",
+      "instance_type": "{{user `aws_instance_type`}}",
+      "ssh_username": "{{user `aws_ssh_username`}}",
+      "ami_name": "{{user `aws_ami_name`}}",
+      "vpc_id": "{{user `aws_vpc_id`}}",
+      "subnet_id": "{{user `aws_subnet_id`}}",
+      "associate_public_ip_address": "{{user `aws_associate_public_ip_address`}}",
+      "tags": {
+        "OS_Version": "Ubuntu",
+        "Release": "Latest",
+        "Application": "GoCD"
+      }
+    },
     {
       "type": "virtualbox-iso",
       "boot_command": [
@@ -99,11 +127,13 @@
     {
       "type": "shell",
       "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
-      "script": "packer/scripts/configure-vagrant-sudo.sh"
+      "script": "packer/scripts/configure-vagrant-sudo.sh",
+      "only": ["vmware-iso", "virtualbox-iso"] 
     },
     {
       "type": "shell",
-      "script": "packer/scripts/install-vagrant-key.sh"
+      "script": "packer/scripts/install-vagrant-key.sh",
+      "only": ["vmware-iso", "virtualbox-iso"]
     },
     {
       "type": "shell",
