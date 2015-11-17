@@ -6,7 +6,7 @@ gocd:
     private_key_path: ~/.ssh/aws
     region: us-west-2
     keypair_name: "Justin Menga"
-    ami: ami-48f3e229
+    ami: ami-2b9c8d4a
     subnet_id: subnet-97452df2
     associate_public_ip: true
     elastic_ip: true

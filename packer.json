@@ -29,6 +29,13 @@
       "vpc_id": "{{user `aws_vpc_id`}}",
       "subnet_id": "{{user `aws_subnet_id`}}",
       "associate_public_ip_address": "{{user `aws_associate_public_ip_address`}}",
+      "ami_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": 12,
+          "delete_on_termination": true
+        }
+      ],
       "tags": {
         "OS_Version": "Ubuntu",
         "Release": "Latest",
@@ -144,6 +151,14 @@
       "type": "shell",
       "script": "packer/scripts/install-virtualbox-guest-additions.sh",
       "only": ["virtualbox-iso"] 
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo apt-get install e2fsprogs swapspace -y",
+        "sudo resize2fs /dev/xvda1"
+      ],
+      "only": ["amazon-ebs"]
     },
     {
       "type": "shell",
