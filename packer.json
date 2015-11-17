@@ -149,15 +149,7 @@
     },
     {
       "type": "shell",
-      "script": "packer/scripts/install-virtualbox-guest-additions.sh",
-      "only": ["virtualbox-iso"] 
-    },
-    {
-      "type": "shell",
-      "inline": [
-        "sudo apt-get install e2fsprogs swapspace -y",
-        "sudo resize2fs /dev/xvda1"
-      ],
+      "script": "packer/scripts/configure-swap.sh",
       "only": ["amazon-ebs"]
     },
     {
