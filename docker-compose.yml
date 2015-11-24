@@ -1,0 +1,11 @@
+go-server:
+  image: gocd/gocd-server
+  ports:
+    - 8153:8153
+
+go-agent:
+  build: .
+  links:
+    - go-server
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
