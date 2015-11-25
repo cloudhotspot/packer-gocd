@@ -4,7 +4,7 @@ go-server:
     - 8153:8153
 
 go-agent:
-  build: .
+  image: cloudhotspot/gocd-agent
   links:
     - go-server
   volumes:
