@@ -1,6 +1,4 @@
 #!/bin/bash
-# Update Docker GID
-if [ -n "$DOCKER_GID" ]; then sudo groupmod -g $DOCKER_GID docker; fi
 
 # Set GoCD Server
 GO_SERVER=${GO_SERVER:-go-server}

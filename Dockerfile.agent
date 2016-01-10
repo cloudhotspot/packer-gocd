@@ -3,9 +3,8 @@ MAINTAINER Justin Menga <justin.menga@gmail.com>
 
 ENV TERM=xterm-256color
 
-# Create users and groups
-RUN groupadd -g 1000 go && \
-    useradd -u 1000 -g go go
+# Set mirrors to NZ
+RUN sed -i "s/http:\/\/archive./http:\/\/nz.archive./g" /etc/apt/sources.list
 
 # Install prerequisites
 RUN apt-get update -y && \
@@ -27,17 +26,13 @@ RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 58118E89F3A912897C0
     usermod -aG docker go
 
 # Install Docker Compose
-RUN curl -L https://github.com/docker/compose/releases/download/1.5.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && \
+RUN curl -L https://github.com/docker/compose/releases/download/1.5.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && \
     chmod +x /usr/local/bin/docker-compose
 
 # Install Ansible
 RUN apt-get install python-setuptools ansible -y && \
     easy_install pip && \
     pip install ansible --upgrade
-
-# Run as user go
-RUN echo "go ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers    
-USER go
 
 # Add entrypoint script
 COPY entrypoint-agent.sh /usr/local/bin/entrypoint.sh
